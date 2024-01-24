@@ -6,12 +6,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.ahmadrd.githubuser.R
 import com.ahmadrd.githubuser.adapter.GetUserAdapter
-import com.ahmadrd.githubuser.data.response.DetailUserResponse
 import com.ahmadrd.githubuser.data.response.ItemsItem
 import com.ahmadrd.githubuser.databinding.ActivityMainBinding
 import com.ahmadrd.githubuser.viewmodel.MainViewModel
@@ -20,11 +17,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val mainViewModel : MainViewModel by viewModels()
-    private lateinit var rvUser: RecyclerView
-
-    companion object {
-        const val EXTRA_DATA = "DATA"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,17 +30,17 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.userList.observe(this){ userList->
             setUserData(userList)
-            /**
-             * Ini catatan
-             */
         }
         mainViewModel.isLoading.observe(this) {
             showLoading(it)
         }
 
-//        rvUser = binding.rvUser
-//        rvUser.setHasFixedSize(true)
-//        showRecyclerList()
+        mainViewModel.error.observe(this) {
+            if (it) {
+                Toast.makeText(this, "Failed to load API", Toast.LENGTH_LONG).show()
+            }
+            mainViewModel.toastError()
+        }
 
         // SearchBar
         with(binding) {
@@ -84,25 +76,5 @@ class MainActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
-//    private fun showSelectedUser(user: ItemsItem) {
-//        val intentToDetail = Intent(this@MainActivity, DetailUserActivity::class.java)
-//        intentToDetail.putExtra("DETAIL", user.login)
-//        startActivity(intentToDetail)
-//    }
-
-    private fun showRecyclerList() {
-        rvUser.layoutManager = LinearLayoutManager(this)
-        val listUserAdapter = GetUserAdapter()
-        rvUser.adapter = listUserAdapter
-
-        listUserAdapter.setOnItemClickCallback(object : GetUserAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: DetailUserResponse) {
-                val intentDetail = Intent(this@MainActivity, DetailUserActivity::class.java)
-                intentDetail.putExtra(DetailUserActivity.EXTRA_USER, data.login)
-                startActivity(intentDetail)
-            }
-        })
     }
 }

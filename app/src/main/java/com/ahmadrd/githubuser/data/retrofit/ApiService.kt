@@ -1,12 +1,8 @@
 package com.ahmadrd.githubuser.data.retrofit
 
-import com.ahmadrd.githubuser.data.response.ItemsItem
-import com.ahmadrd.githubuser.data.response.DetailUserResponse
-import com.ahmadrd.githubuser.data.response.ResponseUserGithub
+import com.ahmadrd.githubuser.data.response.*
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiService {
     @GET("search/users")

@@ -6,20 +6,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.FollowFragment">
 
-<!--    <TextView-->
-<!--        android:id="@+id/testUsername"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Following"-->
-<!--        android:textSize="30sp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
     <ProgressBar
         android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
+        style="@android:style/Widget.ProgressBar.Inverse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="10dp"

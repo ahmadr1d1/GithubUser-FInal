@@ -1,38 +1,33 @@
 package com.ahmadrd.githubuser.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.ahmadrd.githubuser.data.response.ItemsItem
 import com.ahmadrd.githubuser.data.response.ResponseUserGithub
 import com.ahmadrd.githubuser.data.retrofit.ApiConfig
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import retrofit2.*
 
 class MainViewModel : ViewModel() {
 
-    // Encapsulation Variable
+
     private val _userList = MutableLiveData<List<ItemsItem>>()
     val userList : LiveData<List<ItemsItem>> = _userList
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _searchUser= MutableLiveData<ResponseUserGithub>()
-    val searchUser: LiveData<ResponseUserGithub> = _searchUser
+    private val _error = MutableLiveData<Boolean>()
+    val error : LiveData<Boolean> = _error
 
     companion object{
         private const val TAG = "MainViewModel"
-//        private const val SEARCH_USER = "Fikri"
     }
 
     init {
         getUser()
     }
 
-    fun getUser(){
+    private fun getUser(){
         _isLoading.value = true
         val client = ApiConfig.getApiService().getUsers()
         client.enqueue(object : Callback<List<ItemsItem>>{
@@ -44,13 +39,13 @@ class MainViewModel : ViewModel() {
                         _userList.postValue(responseBody)
                     }
                 }else {
-                    Log.e(TAG, "onFailure Pertama getUser: ${response.message()}")
+                    Log.e(TAG, "onFailure 1 getUser: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(TAG, "onFailure Kedua getUser: ${t.message}")
+                Log.e(TAG, "onFailure 2 getUser: ${t.message}")
             }
         })
     }
@@ -64,15 +59,19 @@ class MainViewModel : ViewModel() {
                 if (response.isSuccessful){
                     _userList.value = response.body()?.items
                 }else {
-                    Log.e(TAG, "onFailure Pertama getSearchUser: ${response.message()}")
+                    Log.e(TAG, "onFailure 1 getSearchUser: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<ResponseUserGithub>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(TAG, "onFailure Kedua getSearchUser: ${t.message}")
+                Log.e(TAG, "onFailure 2 getSearchUser: ${t.message}")
             }
         })
+    }
+
+    fun toastError(){
+        _error.value = false
     }
 
 }

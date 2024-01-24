@@ -1,15 +1,11 @@
 package com.ahmadrd.githubuser.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.ahmadrd.githubuser.adapter.GetUserAdapter
 import com.ahmadrd.githubuser.data.response.ItemsItem
 import com.ahmadrd.githubuser.databinding.FragmentFollowBinding
@@ -20,14 +16,11 @@ class FollowFragment : Fragment() {
     private var _binding: FragmentFollowBinding? = null
     private val binding get() = _binding!!
     private lateinit var rvUser: RecyclerView
-//    private lateinit var viewModel: DetailViewModel
-//    private val viewModel by viewModels<DetailViewModel>()
 
 
     companion object {
-        const val TAG = "FollowFragments"
-        const val USER_POSITION = "position"
-        const val USERNAME = "username"
+        const val USER_POSITION = "Position"
+        const val USERNAME = "Username"
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -38,20 +31,10 @@ class FollowFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val detailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())
-            .get(DetailViewModel::class.java)
+        val detailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailViewModel::class.java]
 
-//        binding.rvFoll.layoutManager = LinearLayoutManager(requireActivity())
-
-        var position = arguments?.getInt(USER_POSITION, 0)
-        var username = arguments?.getString(USERNAME)
-        Log.d("arguments: position", position.toString())
-        Log.d("arguments: username", username.toString())
-
-//        arguments?.let {
-//            position = it.getInt(USER_POSITION, 0)
-//            username = it.getString(USERNAME)
-//        }
+        val position = arguments?.getInt(USER_POSITION, 0)
+        val username = arguments?.getString(USERNAME)
 
         detailViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
@@ -61,7 +44,7 @@ class FollowFragment : Fragment() {
             if (it) {
                 Toast.makeText(requireContext(), "Failed to load API", Toast.LENGTH_LONG).show()
             }
-            detailViewModel.doneToastError()
+            detailViewModel.toastError()
         }
 
         if (position == 1) {

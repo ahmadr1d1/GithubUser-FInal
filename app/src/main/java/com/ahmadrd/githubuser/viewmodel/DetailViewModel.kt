@@ -1,15 +1,11 @@
 package com.ahmadrd.githubuser.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.ahmadrd.githubuser.data.response.DetailUserResponse
 import com.ahmadrd.githubuser.data.response.ItemsItem
 import com.ahmadrd.githubuser.data.retrofit.ApiConfig
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import retrofit2.*
 
 class DetailViewModel: ViewModel() {
 
@@ -60,13 +56,13 @@ class DetailViewModel: ViewModel() {
                 if (response.isSuccessful) {
                     _followers.value = response.body()
                 }else {
-                    Log.e(TAG, "onFailure Pertama getFollowers: ${response.message()}")
+                    Log.e(TAG, "onFailure 1 getFollowers: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(TAG, "onFailure Kedua getFollowers: ${t.message}")
+                Log.e(TAG, "onFailure 2 getFollowers: ${t.message}")
             }
         })
     }
@@ -83,18 +79,18 @@ class DetailViewModel: ViewModel() {
                         _following.postValue(responseBody)
                     }
                 }else {
-                    Log.e(TAG, "onFailure Pertama getFollowing: ${response.message()}")
+                    Log.e(TAG, "onFailure 1 getFollowing: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(TAG, "onFailure Kedua getFollowing: ${t.message}")
+                Log.e(TAG, "onFailure 2 getFollowing: ${t.message}")
             }
         })
     }
 
-    fun doneToastError(){
+    fun toastError(){
         _error.value = false
     }
 }

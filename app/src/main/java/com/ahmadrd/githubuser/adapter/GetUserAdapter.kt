@@ -1,12 +1,8 @@
 package com.ahmadrd.githubuser.adapter
 
 import android.content.Intent
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.ahmadrd.githubuser.data.response.DetailUserResponse
+import android.view.*
+import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.ahmadrd.githubuser.data.response.ItemsItem
@@ -14,8 +10,6 @@ import com.ahmadrd.githubuser.databinding.ItemUserBinding
 import com.ahmadrd.githubuser.ui.DetailUserActivity
 
 class GetUserAdapter : ListAdapter<ItemsItem, GetUserAdapter.UserViewHolder>(DIFF_CALLBACK) {
-
-    private lateinit var onItemClickCallback: OnItemClickCallback
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemsItem>() {
@@ -29,7 +23,7 @@ class GetUserAdapter : ListAdapter<ItemsItem, GetUserAdapter.UserViewHolder>(DIF
         }
     }
 
-    class UserViewHolder(var binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
+    class UserViewHolder(private var binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: ItemsItem) {
             binding.root.setOnClickListener {
                 val intentDetail = Intent(binding.root.context, DetailUserActivity::class.java)
@@ -52,13 +46,5 @@ class GetUserAdapter : ListAdapter<ItemsItem, GetUserAdapter.UserViewHolder>(DIF
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = getItem(position)
         holder.bind(user)
-    }
-
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
-
-    interface OnItemClickCallback {
-        fun onItemClicked(data: DetailUserResponse)
     }
 }

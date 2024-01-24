@@ -1,11 +1,8 @@
 package com.ahmadrd.githubuser.ui
 
 import android.annotation.SuppressLint
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
@@ -39,14 +36,9 @@ class DetailUserActivity : AppCompatActivity() {
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        detailViewModel.isLoading.observe(this) {
-//            showLoading(it)
-//        }
-
         val dataUserName = intent.getStringExtra(EXTRA_USER)
-        Log.d(TAG, "Ini data String " + dataUserName.toString())
         if (dataUserName != null) {
-            detailViewModel.setDetailUser(username = dataUserName) // Simple Code but ga nemu" 3 hari lamanya:)
+            detailViewModel.setDetailUser(username = dataUserName)
             detailViewModel.detailUser.observe(this) {
                 findUser(it)
             }
@@ -56,11 +48,12 @@ class DetailUserActivity : AppCompatActivity() {
             if (it) {
                 Toast.makeText(this, "Failed to load API", Toast.LENGTH_LONG).show()
             }
+            detailViewModel.toastError()
         }
 
 
         val sectionsViewPager  = SectionsPagerAdapter(this)
-        sectionsViewPager.username = dataUserName.toString() // Get Data Follow(makasih banyak diskusi dicoding)
+        sectionsViewPager.username = dataUserName.toString()
         val viewPager = binding.viewPager
         viewPager.adapter = sectionsViewPager
         val tabs = binding.tabs
@@ -69,10 +62,6 @@ class DetailUserActivity : AppCompatActivity() {
         }.attach()
         supportActionBar?.elevation = 0f
     }
-
-//    private fun showLoading(isLoading: Boolean) {
-//        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-//    }
 
     @SuppressLint("SetTextI18n")
     private fun findUser(user: DetailUserResponse) {
@@ -84,6 +73,5 @@ class DetailUserActivity : AppCompatActivity() {
         binding.tvUsernameUser.text = user.name
         binding.tvFollowersUser.text = user.followers.toString() + " Followers"
         binding.tvFollowingUser.text = user.following.toString() + " Following"
-        Log.d(TAG, "Ini method findUser " + user.login)
     }
 }

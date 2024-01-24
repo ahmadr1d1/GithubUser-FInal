@@ -73,16 +73,3 @@ data class ItemsItem(
 	@field:SerializedName("organizations_url")
 	val organizationsUrl: String
 )
-
-//// Update (POST)
-//data class DetailUserResponse(
-//
-//	@field:SerializedName("incomplete_results")
-//	val error: Boolean,
-//
-//	@field:SerializedName("total_count")
-//	val message: Int,
-//
-//	@field:SerializedName("userInfo")
-//	val userInfo: List<ItemsItem>
-//)

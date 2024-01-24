@@ -3,7 +3,6 @@ package com.ahmadrd.githubuser.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.ahmadrd.githubuser.R
 import com.ahmadrd.githubuser.databinding.ActivitySettingsBinding
 
 class SettingsActivity : AppCompatActivity() {
