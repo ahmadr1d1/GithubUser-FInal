@@ -11,4 +11,5 @@
     <color name="greendark">#0DC300</color>
     <color name="security">#0DDF87</color>
     <color name="secondary">#FFEE5C</color>
+    <color name="bgImage">#00FF0000</color>
 </resources>

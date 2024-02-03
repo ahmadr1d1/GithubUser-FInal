@@ -13,9 +13,9 @@ object ApiConfig {
     fun getApiService(): ApiService {
         val authInterceptor = Interceptor { chain ->
             val req = chain.request()
-            val mySuperScretKey = BuildConfig.KEY
+            val mySuperSecretKey = BuildConfig.KEY
             val requestHeaders = req.newBuilder()
-                .addHeader("Authorization", mySuperScretKey)
+                .addHeader("Authorization", mySuperSecretKey)
                 .build()
             chain.proceed(requestHeaders)
         }

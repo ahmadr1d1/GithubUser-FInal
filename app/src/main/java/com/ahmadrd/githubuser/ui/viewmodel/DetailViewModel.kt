@@ -1,4 +1,4 @@
-package com.ahmadrd.githubuser.viewmodel
+package com.ahmadrd.githubuser.ui.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
@@ -18,8 +18,8 @@ class DetailViewModel: ViewModel() {
     private val _followers = MutableLiveData<List<ItemsItem>>()
     val followers : LiveData<List<ItemsItem>> = _followers
 
-    private val _following = MutableLiveData<List<ItemsItem>>()
-    val following : LiveData<List<ItemsItem>> = _following
+    private val _following = MutableLiveData<List<ItemsItem>?>()
+    val following : LiveData<List<ItemsItem>?> = _following
 
     private val _error = MutableLiveData<Boolean>()
     val error : LiveData<Boolean> = _error

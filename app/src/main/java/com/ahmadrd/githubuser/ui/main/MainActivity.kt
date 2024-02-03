@@ -1,4 +1,4 @@
-package com.ahmadrd.githubuser.ui
+package com.ahmadrd.githubuser.ui.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,12 +6,19 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.*
 import com.ahmadrd.githubuser.R
-import com.ahmadrd.githubuser.adapter.GetUserAdapter
+import com.ahmadrd.githubuser.ui.adapter.GetUserAdapter
 import com.ahmadrd.githubuser.data.response.ItemsItem
 import com.ahmadrd.githubuser.databinding.ActivityMainBinding
-import com.ahmadrd.githubuser.viewmodel.MainViewModel
+import com.ahmadrd.githubuser.ui.viewmodel.MainViewModel
+import com.ahmadrd.githubuser.ui.viewmodel.SettingThemeViewModel
+import com.ahmadrd.githubuser.utils.SettingPreferences
+import com.ahmadrd.githubuser.utils.SettingViewModelFactory
+import com.ahmadrd.githubuser.utils.dataStore
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,7 +36,9 @@ class MainActivity : AppCompatActivity() {
         binding.rvUser.addItemDecoration(itemDecoration)
 
         mainViewModel.userList.observe(this){ userList->
-            setUserData(userList)
+            if (userList != null) {
+                setUserData(userList)
+            }
         }
         mainViewModel.isLoading.observe(this) {
             showLoading(it)
@@ -56,15 +65,32 @@ class MainActivity : AppCompatActivity() {
                 }
         }
 
-        // Settings Activity
         binding.topAppBar.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.action_settings -> {
                     val intent = Intent(this@MainActivity, SettingsActivity::class.java)
                     startActivity(intent)
                 }
+                R.id.action_favorite -> {
+                    val intent = Intent(this@MainActivity, FavoriteUserActivity::class.java)
+                    startActivity(intent)
+                }
             }
             true
+        }
+
+        // For Dark Theme Const
+        val settingPreferences = SettingPreferences.getInstance(dataStore)
+        val themeViewModel =
+            ViewModelProvider(this,
+                SettingViewModelFactory(settingPreferences))[SettingThemeViewModel::class.java]
+
+        themeViewModel.getThemeSettings().observe(this) { isDarkModeActive ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
         }
     }
 
@@ -77,4 +103,5 @@ class MainActivity : AppCompatActivity() {
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+
 }

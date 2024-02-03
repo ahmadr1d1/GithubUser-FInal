@@ -15,14 +15,17 @@
         android:theme="@style/Theme.GithubUser"
         tools:targetApi="31">
         <activity
-            android:name=".ui.SettingsActivity"
+            android:name=".ui.main.FavoriteUserActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.DetailUserActivity"
-            android:exported="false"
-            android:configChanges="keyboardHidden|orientation"/>
+            android:name=".ui.main.SettingsActivity"
+            android:exported="false" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.main.DetailUserActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

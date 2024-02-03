@@ -19,4 +19,7 @@ interface ApiService {
 
     @GET("users/{username}/following")
     fun getUserFollowing(@Path("username") username: String): Call<List<ItemsItem>>
+
+    @GET("users/{login}")
+    suspend fun getDetailFavoriteUser(@Path("login") login: String): DetailUserResponse
 }

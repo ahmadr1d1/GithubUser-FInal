@@ -1,4 +1,4 @@
-package com.ahmadrd.githubuser.adapter
+package com.ahmadrd.githubuser.ui.adapter
 
 import android.content.Intent
 import android.view.*
@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.ahmadrd.githubuser.data.response.ItemsItem
 import com.ahmadrd.githubuser.databinding.ItemUserBinding
-import com.ahmadrd.githubuser.ui.DetailUserActivity
+import com.ahmadrd.githubuser.ui.main.DetailUserActivity
 
 class GetUserAdapter : ListAdapter<ItemsItem, GetUserAdapter.UserViewHolder>(DIFF_CALLBACK) {
 

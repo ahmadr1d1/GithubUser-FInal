@@ -1,4 +1,4 @@
-package com.ahmadrd.githubuser.viewmodel
+package com.ahmadrd.githubuser.ui.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
@@ -9,9 +9,8 @@ import retrofit2.*
 
 class MainViewModel : ViewModel() {
 
-
-    private val _userList = MutableLiveData<List<ItemsItem>>()
-    val userList : LiveData<List<ItemsItem>> = _userList
+    private val _userList = MutableLiveData<List<ItemsItem>?>()
+    val userList : LiveData<List<ItemsItem>?> = _userList
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading

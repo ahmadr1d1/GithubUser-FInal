@@ -1,4 +1,4 @@
-package com.ahmadrd.githubuser.ui
+package com.ahmadrd.githubuser.ui.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,10 +6,10 @@ import android.view.*
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.*
-import com.ahmadrd.githubuser.adapter.GetUserAdapter
+import com.ahmadrd.githubuser.ui.adapter.GetUserAdapter
 import com.ahmadrd.githubuser.data.response.ItemsItem
 import com.ahmadrd.githubuser.databinding.FragmentFollowBinding
-import com.ahmadrd.githubuser.viewmodel.DetailViewModel
+import com.ahmadrd.githubuser.ui.viewmodel.DetailViewModel
 
 class FollowFragment : Fragment() {
 
@@ -55,7 +55,9 @@ class FollowFragment : Fragment() {
         } else {
             detailViewModel.getFollowing(username.toString())
                 detailViewModel.following.observe(viewLifecycleOwner) {
-                    setData(it)
+                    if (it != null) {
+                        setData(it)
+                    }
                 }
             }
 

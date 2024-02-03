@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Github User</string>
     <string name="search_user">Search User</string>
-    <string name="menu_1">Setting</string>
+    <string name="menu_1">Settings</string>
+    <string name="menu_2">Favorite</string>
     <string name="name_user">Name User</string>
     <string name="searchbar_hint">Search User</string>
 
@@ -18,4 +19,16 @@
     <string name="sendMessage">Send us a message</string>
     <string name="aboutUs">About Us</string>
     <string name="faqs">FAQs</string>
+    <string name="dark_mode">Dark Mode</string>
+
+    <!-- TODO: activity_favorite -->
+    <string name="tittle_favorite">Your Favorite User</string>
+    <string name="add">Success added user to favorite</string>
+    <string name="delete">Success delete user from favorite</string>
+    <string name="floatingButton">Favorite FLoating Button</string>
+
+    <!-- TODO: activity_detail -->
+    <string name="following"> Following</string>
+    <string name="followers"> Followers</string>
+
 </resources>
